@@ -1,13 +1,13 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    public: {url: '/', static: true},
-    src: {url: '/dist'},
+    public: { url: "/", static: true },
+    src: { url: "/dist" },
   },
   plugins: [
-    '@snowpack/plugin-dotenv',
-    '@snowpack/plugin-typescript',
-    '@prefresh/snowpack',
+    "@snowpack/plugin-dotenv",
+    "@snowpack/plugin-typescript",
+    "@prefresh/snowpack",
   ],
   install: [
     /* ... */
@@ -25,6 +25,7 @@ module.exports = {
     /* ... */
   },
   alias: {
-    /* ... */
+    react: "preact/compat",
+    "react-dom": "preact/compat",
   },
 };

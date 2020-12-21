@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useState } from "preact/hooks";
 
 const defaults = {
-  gear: () => document.getElementById('load_gear_c'),
+  gear: () => document.getElementById("load_gear_c"),
   delay: 300,
 };
 
@@ -14,7 +14,7 @@ export const useFadeInApp = (opts?: UseFadeIn) => {
       setReady(true);
       return;
     }
-    gear.style.opacity = '0';
+    gear.style.opacity = "0";
     setTimeout(() => {
       gear.remove();
       setReady(true);
