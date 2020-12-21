@@ -11,3 +11,28 @@ generates:
       baseTypesPath: ./src/api.ts
     plugins:
       - typescript-operations
+    config:
+      immutableTypes: true
+      flattenGeneratedTypes: false
+      noExport: false
+      preResolveTypes: false
+      skipTypeNameForRoot: false
+      operationResultSuffix: Result
+      dedupeOperationSuffix: false
+      omitOperationSuffix: false
+      exportFragmentSpreadSubTypes: false
+      enumPrefix: true
+      fieldWrapperValue: T
+      wrapFieldDefinitions: false
+      onlyOperationTypes: false
+      # typesPrefix:
+      skipTypename: false
+      nonOptionalTypename: false
+      useTypeImports: true
+  ./generates.ts:
+    plugins:
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher: fetch
+      operationResultSuffix: Result
