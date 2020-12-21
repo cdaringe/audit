@@ -21,8 +21,14 @@ module.exports = {
   buildOptions: {
     /* ... */
   },
-  proxy: {
-    /* ... */
+  "proxy": {
+    // Short form:
+    "/api/graphql": "http://localhost:9000/v1/graphql",
+    // // Long form:
+    // "/api/02": {
+    //   on: { proxyReq: (p, req, res) => { /* Custom event handlers (JS only) */ },
+    //   /* Custom http-proxy options */
+    // }
   },
   alias: {
     react: "preact/compat",
