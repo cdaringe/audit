@@ -1,5 +1,0 @@
-query GetBasicNodes {
-  nodes(where: {node_type: {_eq: 1}}) {
-    id
-  }
-}

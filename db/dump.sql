@@ -35,6 +35,40 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: node_todo; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.node_todo (
+    id integer NOT NULL,
+    summary character varying NOT NULL,
+    full_text text,
+    assigned_user_id integer DEFAULT 1 NOT NULL,
+    assigned_group_id integer DEFAULT 1 NOT NULL,
+    is_complete boolean DEFAULT false
+);
+
+
+--
+-- Name: node_todo_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.node_todo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: node_todo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.node_todo_id_seq OWNED BY public.node_todo.id;
+
+
+--
 -- Name: node_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -97,6 +131,13 @@ ALTER SEQUENCE public.nodes_id_seq OWNED BY public.nodes.id;
 
 
 --
+-- Name: node_todo id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.node_todo ALTER COLUMN id SET DEFAULT nextval('public.node_todo_id_seq'::regclass);
+
+
+--
 -- Name: node_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -108,6 +149,68 @@ ALTER TABLE ONLY public.node_types ALTER COLUMN id SET DEFAULT nextval('public.n
 --
 
 ALTER TABLE ONLY public.nodes ALTER COLUMN id SET DEFAULT nextval('public.nodes_id_seq'::regclass);
+
+
+--
+-- Data for Name: node_todo; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.node_todo (id, summary, full_text, assigned_user_id, assigned_group_id, is_complete) FROM stdin;
+3	balance that budget	who knows how much money we even have	1	1	f
+4	cure cancer	the world needs some goodness	1	1	f
+5	feed children	not a parent, but i'd imagine it's rather important	1	1	t
+6	add diary entry	some seriously juicy stuff has been happening	1	1	t
+1	buy groceries	dont forget the milk	1	1	t
+2	take out trash	it totally stinks	1	1	f
+\.
+
+
+--
+-- Data for Name: node_types; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.node_types (id, created_at, name) FROM stdin;
+1	2020-12-21 20:51:46.57568+00	todo
+\.
+
+
+--
+-- Data for Name: nodes; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.nodes (id, created_at, node_type) FROM stdin;
+1	2020-12-21 20:52:04.423105+00	1
+3	2020-12-21 20:52:13.997902+00	1
+\.
+
+
+--
+-- Name: node_todo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.node_todo_id_seq', 6, true);
+
+
+--
+-- Name: node_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.node_types_id_seq', 1, true);
+
+
+--
+-- Name: nodes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.nodes_id_seq', 3, true);
+
+
+--
+-- Name: node_todo node_todo_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.node_todo
+    ADD CONSTRAINT node_todo_pkey PRIMARY KEY (id);
 
 
 --

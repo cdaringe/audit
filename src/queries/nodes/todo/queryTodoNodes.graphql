@@ -1,0 +1,10 @@
+query GetTodoNodes {
+  node_todo(order_by: { id: asc }) {
+    id
+    summary
+    full_text
+    assigned_user_id
+    assigned_group_id
+    is_complete
+  }
+}

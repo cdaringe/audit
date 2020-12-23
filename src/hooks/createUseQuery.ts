@@ -1,9 +1,20 @@
-import { useQuery, QueryConfig, UseQueryOptions } from 'react-query';
+import {
+  MutationFunction,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from "react-query";
 
-function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, query: string, variables?: TVariables) {
+function fetcher<TData, TVariables>(
+  endpoint: string,
+  requestInit: RequestInit,
+  query: string,
+  variables?: TVariables,
+) {
   return async (): Promise<TData> => {
     const res = await fetch(endpoint, {
-      method: 'POST',
+      method: "POST",
       ...requestInit,
       body: JSON.stringify({ query, variables }),
     });
@@ -13,14 +24,29 @@ function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, 
       throw new Error(message);
     }
     return json.data;
-  }
+  };
 }
 
-export const createUseQuery = (query: string) => <Result, Err=unknown, Vars={}>(options: UseQueryOptions<Result>, vars?: Vars) => {
-    return useQuery({
-      queryFn: () => {
-        return fetcher<Result, Vars>("http://abc", {}, query, vars)()
-      },
-      ...options
-    })
-}
+export const createUseQuery = <Result, Vars = {}>(
+  query: string,
+  options: UseQueryOptions<Result>,
+  vars?: Vars,
+) =>
+  useQuery({
+    queryFn: () => {
+      return fetcher<Result, Vars>("/api/graphql", {}, query, vars)();
+    },
+    ...options,
+  });
+
+export const createUseMutation = <Result, Vars = {}>(
+  query: string,
+  options?: UseMutationOptions<Result, unknown, Vars, unknown>,
+) => {
+  let fn: MutationFunction<Result, Vars> = (vars) =>
+    fetcher<Result, Vars>("/api/graphql", {}, query, vars)();
+  return useMutation<Result, unknown, Vars>(
+    fn,
+    options,
+  );
+};

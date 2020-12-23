@@ -7,7 +7,7 @@ Deno.env.set("POSTGRES_DB", POSTGRES_DB);
 const psqlConnArgs = " -U postgres -h 127.0.0.1 ";
 export const psql = `psql ${psqlConnArgs}`;
 export const dump: Task =
-  `pg_dump -O -x --schema-only --schema public ${psqlConnArgs} > ${sqlDumpFilename}`;
+  `pg_dump -O -x  --schema public ${psqlConnArgs} > ${sqlDumpFilename}`;
 export const dbd = dump;
 export const restore: Task = {
   async fn({ sh, logger }) {
