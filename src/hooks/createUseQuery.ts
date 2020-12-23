@@ -34,7 +34,7 @@ export const createUseQuery = <Result, Vars = {}>(
 ) =>
   useQuery({
     queryFn: () => {
-      return fetcher<Result, Vars>("/api/graphql", {}, query, vars)();
+      return fetcher<Result, Vars>("/v1/graphql", {}, query, vars)();
     },
     ...options,
   });
@@ -44,7 +44,7 @@ export const createUseMutation = <Result, Vars = {}>(
   options?: UseMutationOptions<Result, unknown, Vars, unknown>,
 ) => {
   let fn: MutationFunction<Result, Vars> = (vars) =>
-    fetcher<Result, Vars>("/api/graphql", {}, query, vars)();
+    fetcher<Result, Vars>("/v1/graphql", {}, query, vars)();
   return useMutation<Result, unknown, Vars>(
     fn,
     options,

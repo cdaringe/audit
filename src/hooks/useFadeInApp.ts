@@ -1,7 +1,11 @@
 import { useEffect, useState } from "preact/hooks";
 
 const defaults = {
-  gear: () => document.getElementById("load_gear_c"),
+  gear: () => {
+    try {
+      document.getElementById("load_gear_c");
+    } catch {}
+  },
   delay: 300,
 };
 

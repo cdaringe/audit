@@ -35,7 +35,7 @@ const ChecklistDashboard: FunctionComponent = () => {
           <Todo
             todo={it}
             onUpdate={(it) => {
-              // updateTodo.mutate(it);
+              updateTodo.mutate(it);
             }}
           />
         </Grid>))}

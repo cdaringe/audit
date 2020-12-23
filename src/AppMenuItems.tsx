@@ -1,4 +1,3 @@
-import { Fragment, FunctionComponent, h } from "preact";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -8,8 +7,8 @@ import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import LayersIcon from "@material-ui/icons/Layers";
 
-const AppMenuItems: FunctionComponent = () =>
-  <Fragment>
+const AppMenuItems: React.FC = () =>
+  <>
     <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
@@ -40,6 +39,6 @@ const AppMenuItems: FunctionComponent = () =>
       </ListItemIcon>
       <ListItemText primary="Integrations" />
     </ListItem>
-  </Fragment>;
+  </>;
 
 export default AppMenuItems;

@@ -1,7 +1,5 @@
-import { h } from "preact";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import "./App.css";
 import AppBar from "./AppBar";
 import AppDrawer from "./AppDrawer";
 import AppLayout from "./AppLayout";
