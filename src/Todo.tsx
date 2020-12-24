@@ -1,14 +1,12 @@
-import { FunctionalComponent, h } from "preact";
-import Paper from "@material-ui/core/Paper";
-
-import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import { FC } from "react";
 import type { Node_Todo } from "./api";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Todo: FunctionalComponent<{
+const Todo: FC<{
   todo: Node_Todo;
   onUpdate: (it: Node_Todo) => void;
 }> = (props) => {

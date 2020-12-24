@@ -8,7 +8,17 @@ import { Provider as AppBarProvider } from "./contexts/app-bar";
 import { useFadeInApp } from "./hooks/useFadeInApp";
 import Theme from "./theme/Provider";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchIntervalInBackground: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchInterval: 1e9
+    }
+  }
+}
+);
 
 function App() {
   const isFadeReady = useFadeInApp();

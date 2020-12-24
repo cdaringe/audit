@@ -1,4 +1,3 @@
-import { FunctionComponent, h } from "preact";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -10,6 +9,7 @@ import Divider from "@material-ui/core/Divider";
 import { useAppBar } from "./contexts/app-bar";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AppMenuItems from "./AppMenuItems";
+import { FC } from "react";
 // import { mainListItems, secondaryListItems } from "./listItems";
 
 const drawerWidth = 240;
@@ -55,15 +55,16 @@ const useStyles = makeStyles((theme) => (
   }
 ));
 
-const AppDrawer: FunctionComponent = () => {
+const AppDrawer: FC = () => {
   const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const { isOpen, close } = useAppBar();
+  const paper = clsx(classes.drawerPaper, isOpen ? "" : classes.drawerPaperClose)
   return (
     <Drawer
       variant="permanent"
       classes={{
-        paper: clsx(classes.drawerPaper, !isOpen && classes.drawerPaperClose),
+        paper,
       }}
       open={isOpen}
     >

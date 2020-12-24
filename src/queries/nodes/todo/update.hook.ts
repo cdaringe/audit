@@ -30,7 +30,7 @@ import type {
 } from "./updateTodoNode.gen";
 
 export const useMutateTodo = () => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   return createUseMutation<
     UpdateTodoMutationResult,
     UpdateTodoMutationVariables
@@ -38,7 +38,7 @@ export const useMutateTodo = () => {
     query,
     {
       onSuccess: () => {
-        // queryClient.invalidateQueries("todos");
+        queryClient.invalidateQueries("todos");
       },
     },
   );

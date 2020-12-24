@@ -1,8 +1,5 @@
-import { FunctionComponent, h } from "preact";
-import { renderHook } from "@testing-library/preact-hooks";
-import { render } from "@testing-library/preact";
+import { renderHook } from "@testing-library/react-hooks";
 import { expect } from "chai";
-import { useEffect } from "preact/hooks";
 import { useFadeInApp } from "./useFadeInApp";
 
 describe("useFadeInApp", () => {

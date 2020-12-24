@@ -1,4 +1,6 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState } from "react";
+
+type UseFadeIn = Partial<{ gear: HTMLDivElement; delay: number }>;
 
 const defaults = {
   gear: () => {
@@ -9,7 +11,6 @@ const defaults = {
   delay: 300,
 };
 
-type UseFadeIn = Partial<{ gear: HTMLDivElement; delay: number }>;
 export const useFadeInApp = (opts?: UseFadeIn) => {
   const { gear = defaults.gear(), delay = defaults.delay } = opts || {};
   const [ready, setReady] = useState(false);

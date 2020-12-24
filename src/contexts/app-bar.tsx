@@ -1,5 +1,4 @@
-import { createContext, FunctionComponent, h } from "preact";
-import { useContext } from "preact/hooks";
+import { FC, useContext, createContext } from "react";
 import { useState } from "react";
 
 type ABC = {
@@ -19,7 +18,7 @@ const createAppBarCtx = () => {
 
 export const ctx = createAppBarCtx();
 
-export const Provider: FunctionComponent = (props) => {
+export const Provider: FC = (props) => {
   const [isOpen, setOpen] = useState(false);
   const open = () => setOpen(true);
   const close = () => setOpen(false);

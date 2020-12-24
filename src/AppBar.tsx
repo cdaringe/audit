@@ -1,13 +1,13 @@
-import { FunctionComponent, h } from "preact";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
 import MuiAppBar from "@material-ui/core/AppBar";
+import Badge from "@material-ui/core/Badge";
+import IconButton from "@material-ui/core/IconButton";
+import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import IconButton from "@material-ui/core/IconButton";
+import clsx from "clsx";
+import { FC } from "react";
 import { useAppBar } from "./contexts/app-bar";
 
 const drawerWidth = 240;
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 type AppBarProps = {};
 
-export const AppBar: FunctionComponent<AppBarProps> = () => {
+export const AppBar: FC<AppBarProps> = () => {
   const classes = useStyles();
   const { open, isOpen } = useAppBar();
   return (

@@ -1,6 +1,6 @@
-import { FunctionComponent, h } from "preact";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline/index";
+import { FC } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type AppLayoutProps = {
-  AppBar: FunctionComponent;
-  AppDrawer: FunctionComponent;
+  AppBar: FC;
+  AppDrawer: FC;
 };
-const AppLayout: FunctionComponent<AppLayoutProps> = (
+const AppLayout: FC<AppLayoutProps> = (
   { children, AppBar, AppDrawer },
 ) => {
   const classes = useStyles();

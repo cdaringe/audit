@@ -2,10 +2,10 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
-import { FunctionComponent, h } from "preact";
 import { useQueryTodoNodes } from "./queries/nodes/todo/query.hook";
 import { useMutateTodo } from "./queries/nodes/todo/update.hook";
 import Todo from "./Todo";
+import { FC } from "react";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-const ChecklistDashboard: FunctionComponent = () => {
+const ChecklistDashboard: FC = () => {
   const classes = useStyles();
   const updateTodo = useMutateTodo();
   const { isLoading, data } = useQueryTodoNodes();
@@ -31,7 +31,7 @@ const ChecklistDashboard: FunctionComponent = () => {
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
         {isLoading && <CircularProgress />}
-        {(data?.node_todo || []).map((it) => (<Grid item xs={12} md={8} lg={9}>
+        {(data?.node_todo || []).map((it, key) => (<Grid key={key} item xs={12} md={8} lg={9}>
           <Todo
             todo={it}
             onUpdate={(it) => {
