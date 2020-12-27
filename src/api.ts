@@ -220,6 +220,8 @@ export type Node_Todo = {
   full_text?: Maybe<Scalars["String"]>;
   id: Scalars["Int"];
   is_complete?: Maybe<Scalars["Boolean"]>;
+  is_virtual?: Maybe<Scalars["Boolean"]>;
+  parent_id?: Maybe<Scalars["Int"]>;
   summary: Scalars["String"];
 };
 
@@ -279,6 +281,7 @@ export type Node_Todo_Avg_Fields = {
   assigned_group_id?: Maybe<Scalars["Float"]>;
   assigned_user_id?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["Float"]>;
+  parent_id?: Maybe<Scalars["Float"]>;
 };
 
 /** order by avg() on columns of table "node_todo" */
@@ -286,6 +289,7 @@ export type Node_Todo_Avg_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "node_todo". All fields are combined with a logical 'AND'. */
@@ -298,6 +302,8 @@ export type Node_Todo_Bool_Exp = {
   full_text?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   is_complete?: Maybe<Boolean_Comparison_Exp>;
+  is_virtual?: Maybe<Boolean_Comparison_Exp>;
+  parent_id?: Maybe<Int_Comparison_Exp>;
   summary?: Maybe<String_Comparison_Exp>;
 };
 
@@ -312,6 +318,7 @@ export type Node_Todo_Inc_Input = {
   assigned_group_id?: Maybe<Scalars["Int"]>;
   assigned_user_id?: Maybe<Scalars["Int"]>;
   id?: Maybe<Scalars["Int"]>;
+  parent_id?: Maybe<Scalars["Int"]>;
 };
 
 /** input type for inserting data into table "node_todo" */
@@ -321,6 +328,8 @@ export type Node_Todo_Insert_Input = {
   full_text?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["Int"]>;
   is_complete?: Maybe<Scalars["Boolean"]>;
+  is_virtual?: Maybe<Scalars["Boolean"]>;
+  parent_id?: Maybe<Scalars["Int"]>;
   summary?: Maybe<Scalars["String"]>;
 };
 
@@ -331,6 +340,7 @@ export type Node_Todo_Max_Fields = {
   assigned_user_id?: Maybe<Scalars["Int"]>;
   full_text?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["Int"]>;
+  parent_id?: Maybe<Scalars["Int"]>;
   summary?: Maybe<Scalars["String"]>;
 };
 
@@ -340,6 +350,7 @@ export type Node_Todo_Max_Order_By = {
   assigned_user_id?: Maybe<Order_By>;
   full_text?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
   summary?: Maybe<Order_By>;
 };
 
@@ -350,6 +361,7 @@ export type Node_Todo_Min_Fields = {
   assigned_user_id?: Maybe<Scalars["Int"]>;
   full_text?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["Int"]>;
+  parent_id?: Maybe<Scalars["Int"]>;
   summary?: Maybe<Scalars["String"]>;
 };
 
@@ -359,6 +371,7 @@ export type Node_Todo_Min_Order_By = {
   assigned_user_id?: Maybe<Order_By>;
   full_text?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
   summary?: Maybe<Order_By>;
 };
 
@@ -391,6 +404,8 @@ export type Node_Todo_Order_By = {
   full_text?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   is_complete?: Maybe<Order_By>;
+  is_virtual?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
   summary?: Maybe<Order_By>;
 };
 
@@ -412,6 +427,10 @@ export enum Node_Todo_Select_Column {
   /** column name */
   IsComplete = "is_complete",
   /** column name */
+  IsVirtual = "is_virtual",
+  /** column name */
+  ParentId = "parent_id",
+  /** column name */
   Summary = "summary",
 }
 
@@ -422,6 +441,8 @@ export type Node_Todo_Set_Input = {
   full_text?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["Int"]>;
   is_complete?: Maybe<Scalars["Boolean"]>;
+  is_virtual?: Maybe<Scalars["Boolean"]>;
+  parent_id?: Maybe<Scalars["Int"]>;
   summary?: Maybe<Scalars["String"]>;
 };
 
@@ -431,6 +452,7 @@ export type Node_Todo_Stddev_Fields = {
   assigned_group_id?: Maybe<Scalars["Float"]>;
   assigned_user_id?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["Float"]>;
+  parent_id?: Maybe<Scalars["Float"]>;
 };
 
 /** order by stddev() on columns of table "node_todo" */
@@ -438,6 +460,7 @@ export type Node_Todo_Stddev_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -446,6 +469,7 @@ export type Node_Todo_Stddev_Pop_Fields = {
   assigned_group_id?: Maybe<Scalars["Float"]>;
   assigned_user_id?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["Float"]>;
+  parent_id?: Maybe<Scalars["Float"]>;
 };
 
 /** order by stddev_pop() on columns of table "node_todo" */
@@ -453,6 +477,7 @@ export type Node_Todo_Stddev_Pop_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -461,6 +486,7 @@ export type Node_Todo_Stddev_Samp_Fields = {
   assigned_group_id?: Maybe<Scalars["Float"]>;
   assigned_user_id?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["Float"]>;
+  parent_id?: Maybe<Scalars["Float"]>;
 };
 
 /** order by stddev_samp() on columns of table "node_todo" */
@@ -468,6 +494,7 @@ export type Node_Todo_Stddev_Samp_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** aggregate sum on columns */
@@ -476,6 +503,7 @@ export type Node_Todo_Sum_Fields = {
   assigned_group_id?: Maybe<Scalars["Int"]>;
   assigned_user_id?: Maybe<Scalars["Int"]>;
   id?: Maybe<Scalars["Int"]>;
+  parent_id?: Maybe<Scalars["Int"]>;
 };
 
 /** order by sum() on columns of table "node_todo" */
@@ -483,6 +511,7 @@ export type Node_Todo_Sum_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** update columns of table "node_todo" */
@@ -498,6 +527,10 @@ export enum Node_Todo_Update_Column {
   /** column name */
   IsComplete = "is_complete",
   /** column name */
+  IsVirtual = "is_virtual",
+  /** column name */
+  ParentId = "parent_id",
+  /** column name */
   Summary = "summary",
 }
 
@@ -507,6 +540,7 @@ export type Node_Todo_Var_Pop_Fields = {
   assigned_group_id?: Maybe<Scalars["Float"]>;
   assigned_user_id?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["Float"]>;
+  parent_id?: Maybe<Scalars["Float"]>;
 };
 
 /** order by var_pop() on columns of table "node_todo" */
@@ -514,6 +548,7 @@ export type Node_Todo_Var_Pop_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
@@ -522,6 +557,7 @@ export type Node_Todo_Var_Samp_Fields = {
   assigned_group_id?: Maybe<Scalars["Float"]>;
   assigned_user_id?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["Float"]>;
+  parent_id?: Maybe<Scalars["Float"]>;
 };
 
 /** order by var_samp() on columns of table "node_todo" */
@@ -529,6 +565,7 @@ export type Node_Todo_Var_Samp_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** aggregate variance on columns */
@@ -537,6 +574,7 @@ export type Node_Todo_Variance_Fields = {
   assigned_group_id?: Maybe<Scalars["Float"]>;
   assigned_user_id?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["Float"]>;
+  parent_id?: Maybe<Scalars["Float"]>;
 };
 
 /** order by variance() on columns of table "node_todo" */
@@ -544,6 +582,7 @@ export type Node_Todo_Variance_Order_By = {
   assigned_group_id?: Maybe<Order_By>;
   assigned_user_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  parent_id?: Maybe<Order_By>;
 };
 
 /** columns and relationships of "node_types" */

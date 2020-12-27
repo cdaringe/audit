@@ -44,7 +44,10 @@ CREATE TABLE public.node_todo (
     full_text text,
     assigned_user_id integer DEFAULT 1 NOT NULL,
     assigned_group_id integer DEFAULT 1 NOT NULL,
-    is_complete boolean DEFAULT false
+    is_complete boolean DEFAULT false,
+    parent_id integer,
+    is_virtual boolean,
+    CONSTRAINT cannot_have_self_parent CHECK ((id <> parent_id))
 );
 
 
@@ -155,13 +158,14 @@ ALTER TABLE ONLY public.nodes ALTER COLUMN id SET DEFAULT nextval('public.nodes_
 -- Data for Name: node_todo; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.node_todo (id, summary, full_text, assigned_user_id, assigned_group_id, is_complete) FROM stdin;
-3	balance that budget	who knows how much money we even have	1	1	f
-4	cure cancer	the world needs some goodness	1	1	f
-5	feed children	not a parent, but i'd imagine it's rather important	1	1	t
-6	add diary entry	some seriously juicy stuff has been happening	1	1	t
-1	buy groceries	dont forget the milk	1	1	t
-2	take out trash	it totally stinks	1	1	f
+COPY public.node_todo (id, summary, full_text, assigned_user_id, assigned_group_id, is_complete, parent_id, is_virtual) FROM stdin;
+7	do the lords work	somebody's gotta do it	1	1	\N	\N	t
+1	buy groceries weee	ya dude	1	1	t	7	\N
+5	feed children	not a parent, but i'd imagine it's rather important	1	1	t	7	\N
+2	take out trash	it totally stinks, yuck!! no seriously, it's gross	1	1	f	7	\N
+3	balance that budget	who knows how much money we even have	1	1	f	7	\N
+4	cure cancer	the world needs some goodness	1	1	t	7	\N
+6	add diary entry	some seriously juicy stuff has been happening	1	1	t	7	\N
 \.
 
 
@@ -188,7 +192,7 @@ COPY public.nodes (id, created_at, node_type) FROM stdin;
 -- Name: node_todo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.node_todo_id_seq', 6, true);
+SELECT pg_catalog.setval('public.node_todo_id_seq', 7, true);
 
 
 --

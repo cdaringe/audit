@@ -37,8 +37,9 @@ export const useMutateTodo = () => {
   >(
     query,
     {
-      onSuccess: () => {
+      onSuccess: (_, vars) => {
         queryClient.invalidateQueries("todos");
+        queryClient.invalidateQueries(["todos", vars.id]);
       },
     },
   );

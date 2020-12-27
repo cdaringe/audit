@@ -11,7 +11,13 @@ generates:
       baseTypesPath: ./src/api.ts
     plugins:
       - typescript-operations
+      # - typescript-graphql-files-modules
     config:
+
+      # typescript-graphql-files-modules
+      # type: string
+
+      # typescript-operations
       immutableTypes: true
       flattenGeneratedTypes: false
       noExport: false
@@ -20,7 +26,7 @@ generates:
       operationResultSuffix: Result
       dedupeOperationSuffix: false
       omitOperationSuffix: false
-      exportFragmentSpreadSubTypes: false
+      exportFragmentSpreadSubTypes: true
       enumPrefix: true
       fieldWrapperValue: T
       wrapFieldDefinitions: false
@@ -29,10 +35,3 @@ generates:
       skipTypename: false
       nonOptionalTypename: false
       useTypeImports: true
-  ./generates.ts:
-    plugins:
-      - typescript-operations
-      - typescript-react-query
-    config:
-      fetcher: fetch
-      operationResultSuffix: Result

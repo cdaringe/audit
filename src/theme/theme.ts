@@ -9,4 +9,13 @@ export const theme = createMuiTheme({
       main: "#6FA5C7",
     },
   },
+  overrides: {
+    MuiIconButton: {
+      root: {
+        "&:hover": {
+          backgroundColor: "$labelcolor",
+        },
+      },
+    },
+  },
 });

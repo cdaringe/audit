@@ -59,7 +59,10 @@ const AppDrawer: FC = () => {
   const classes = useStyles();
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const { isOpen, close } = useAppBar();
-  const paper = clsx(classes.drawerPaper, isOpen ? "" : classes.drawerPaperClose)
+  const paper = clsx(
+    classes.drawerPaper,
+    isOpen ? "" : classes.drawerPaperClose,
+  );
   return (
     <Drawer
       variant="permanent"

@@ -1,9 +1,11 @@
 import type * as Types from "../../../api";
 
 import type { TodoNodeFragment } from "./TodoNode.gen";
-export type GetTodoNodesQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type GetTodoNodeQueryVariables = Types.Exact<{
+  id: Types.Scalars["Int"];
+}>;
 
-export type GetTodoNodesQueryResult = (
+export type GetTodoNodeQueryResult = (
   & { readonly __typename?: "query_root" }
   & {
     readonly node_todo: ReadonlyArray<

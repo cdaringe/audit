@@ -46,7 +46,7 @@ type AppBarProps = {};
 
 export const AppBar: FC<AppBarProps> = () => {
   const classes = useStyles();
-  const { open, isOpen } = useAppBar();
+  const { open, isOpen, title } = useAppBar();
   return (
     <MuiAppBar
       position="absolute"
@@ -72,7 +72,7 @@ export const AppBar: FC<AppBarProps> = () => {
           noWrap
           className={classes.title}
         >
-          Dashboard
+          {title}
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
