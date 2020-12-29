@@ -1,4 +1,3 @@
-#import "./TodoNode.graphql"
 query GetTodoNode($id:Int!) {
   node_todo(where: { id: { _eq: $id }}) {
     ...TodoNode

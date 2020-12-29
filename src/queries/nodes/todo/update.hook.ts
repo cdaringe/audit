@@ -1,45 +1,44 @@
-const query = `
-mutation UpdateTodo(
-  $summary: String!,
-  $id: Int!,
-  $full_text: String,
-  $assigned_user_id: Int,
-  $assigned_group_id: Int,
-  $is_complete: Boolean
-) {
-  update_node_todo(_set: {
-    summary: $summary,
-    id: $id,
-    full_text: $full_text,
-    assigned_user_id: $assigned_user_id,
-    assigned_group_id: $assigned_group_id,
-    is_complete: $is_complete
-  },
-    where: {id: {_eq: $id}}) {
-    affected_rows
-  }
-}
+import { useMutation, useQueryClient } from "react-query";
+import { Node_Todo } from "../../../api";
+import { useClient } from "../../../contexts/gql-client";
+import { GetTodoNodesQueryResult } from "./queryTodoNodes.gen";
+import { queryKey as getTodoNodesQueryKey } from "./queryTodoNodes.hook";
 
-`;
+import { getSdk, UpdateTodoMutationResult } from "./updateTodoNode.gen";
 
-import { useQueryClient } from "react-query";
-import { createUseMutation } from "../../../hooks/createUseQuery";
-import type {
-  UpdateTodoMutationResult,
-  UpdateTodoMutationVariables,
-} from "./updateTodoNode.gen";
+type Ctx = { previousTodos: GetTodoNodesQueryResult };
 
 export const useMutateTodo = () => {
+  const client = useClient();
+  const sdk = getSdk(client);
   const queryClient = useQueryClient();
-  return createUseMutation<
-    UpdateTodoMutationResult,
-    UpdateTodoMutationVariables
-  >(
-    query,
+  return useMutation<UpdateTodoMutationResult, unknown, Node_Todo, Ctx>(
+    (it) => sdk.UpdateTodo(it),
     {
-      onSuccess: (_, vars) => {
-        queryClient.invalidateQueries("todos");
-        queryClient.invalidateQueries(["todos", vars.id]);
+      onMutate: async (it) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(getTodoNodesQueryKey);
+        const previousTodos = queryClient.getQueryData<Ctx["previousTodos"]>(
+          getTodoNodesQueryKey,
+        );
+        queryClient.setQueryData(
+          getTodoNodesQueryKey,
+          (old?: Ctx["previousTodos"]) => {
+            return {
+              ...old,
+              node_todo: old?.node_todo.map((o) => o.id === it.id ? it : o) ||
+                [],
+            };
+          },
+        );
+        return { previousTodos };
+      },
+      onError: (err, newTodo, context) => {
+        queryClient.setQueryData(getTodoNodesQueryKey, context.previousTodos);
+      },
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries(getTodoNodesQueryKey);
       },
     },
   );

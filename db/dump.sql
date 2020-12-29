@@ -47,7 +47,8 @@ CREATE TABLE public.node_todo (
     is_complete boolean DEFAULT false,
     parent_id integer,
     is_virtual boolean,
-    CONSTRAINT cannot_have_self_parent CHECK ((id <> parent_id))
+    CONSTRAINT cannot_have_self_parent CHECK ((id <> parent_id)),
+    CONSTRAINT lengthy_summary CHECK ((btrim((summary)::text) <> ''::text))
 );
 
 
@@ -160,12 +161,13 @@ ALTER TABLE ONLY public.nodes ALTER COLUMN id SET DEFAULT nextval('public.nodes_
 
 COPY public.node_todo (id, summary, full_text, assigned_user_id, assigned_group_id, is_complete, parent_id, is_virtual) FROM stdin;
 7	do the lords work	somebody's gotta do it	1	1	\N	\N	t
-1	buy groceries weee	ya dude	1	1	t	7	\N
 5	feed children	not a parent, but i'd imagine it's rather important	1	1	t	7	\N
-2	take out trash	it totally stinks, yuck!! no seriously, it's gross	1	1	f	7	\N
 3	balance that budget	who knows how much money we even have	1	1	f	7	\N
-4	cure cancer	the world needs some goodness	1	1	t	7	\N
 6	add diary entry	some seriously juicy stuff has been happening	1	1	t	7	\N
+8	ruin everything	sorry bro.	1	1	t	\N	\N
+1	buy groceries weee	ya dude!	1	1	t	\N	\N
+4	cure cancer	the world needs some goodness --	1	1	t	7	\N
+2	take out the garbage	what do you think!arst	1	1	f	7	\N
 \.
 
 
@@ -192,7 +194,7 @@ COPY public.nodes (id, created_at, node_type) FROM stdin;
 -- Name: node_todo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.node_todo_id_seq', 7, true);
+SELECT pg_catalog.setval('public.node_todo_id_seq', 8, true);
 
 
 --

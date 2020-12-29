@@ -1,0 +1,7 @@
+query GetMyStreamNodes {
+  node_todo(order_by: { id: asc }, where: { parent_id: { _is_null: true }}) {
+    summary
+    is_complete
+    id
+  }
+}

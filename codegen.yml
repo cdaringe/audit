@@ -1,5 +1,8 @@
 schema: http://localhost:9000/v1/graphql
 documents: 'src/**/*.graphql'
+hooks:
+  afterAllFileWrite:
+    - sh -c 'rad format' --
 generates:
   ./src/api.ts:
     plugins:
@@ -11,6 +14,7 @@ generates:
       baseTypesPath: ./src/api.ts
     plugins:
       - typescript-operations
+      - typescript-graphql-request
       # - typescript-graphql-files-modules
     config:
 

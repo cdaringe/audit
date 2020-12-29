@@ -3,15 +3,15 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
+import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import { FC } from "react";
-import type { Node_Todo } from "./api";
-import EditIcon from "@material-ui/icons/Edit";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
+import Tooltip from "@material-ui/core/Tooltip";
+import EditIcon from "@material-ui/icons/Edit";
+import { FC, useState } from "react";
+import type { Node_Todo } from "./api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +38,12 @@ export type Props = {
 };
 const Todo: FC<Props> = (props) => {
   const { isEditMode } = props;
+  const [editableTodo, setEditableTodo] = useState({ ...props.todo });
+  const model = isEditMode ? editableTodo : props.todo;
+  const updateModel = (next: Props["todo"]) => {
+    setEditableTodo(next);
+    props.onUpdate(next);
+  };
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
@@ -57,7 +63,7 @@ const Todo: FC<Props> = (props) => {
               color="primary"
               aria-label="edit"
               component="span"
-              onClick={() => props?.onEdit(props.todo)}
+              onClick={() => props?.onEdit(model)}
             >
               <EditIcon color="primary" />
             </IconButton>
@@ -72,26 +78,23 @@ const Todo: FC<Props> = (props) => {
         <FormGroup>
           <FormControlLabel
             control={<Checkbox
-              defaultChecked={!!props.todo.is_complete}
-              onChange={() => {
-                props.onUpdate(
-                  { ...props.todo, is_complete: !props.todo.is_complete },
-                );
+              checked={!!model.is_complete}
+              onChange={(_, is_complete) => {
+                updateModel({ ...model, is_complete });
               }}
-              name={String(props.todo.id)}
+              name={String(model.id)}
             />}
             label={isEditMode
               ? <TextField
-                defaultValue={props.todo.summary}
+                value={model.summary}
                 onChange={(evt) => {
-                  const value = evt.currentTarget.value;
-                  if (!value) return;
-                  props.onUpdate(
-                    { ...props.todo, summary: value },
-                  );
+                  const summary = evt.currentTarget.value;
+                  // if (!summary) return;
+                  updateModel({ ...model, summary });
                 }}
+                error={!model.summary.trim()}
               />
-              : props.todo.summary}
+              : model.summary}
           />
         </FormGroup>
         {isEditMode
@@ -99,14 +102,14 @@ const Todo: FC<Props> = (props) => {
             style={{ width: "100%", minHeight: "4rem" }}
             aria-label="Long description of task"
             placeholder="Long description"
-            defaultValue={props.todo.full_text}
+            defaultValue={model.full_text}
             onChange={(evt) => {
-              props.onUpdate(
-                { ...props.todo, full_text: evt.currentTarget.value },
+              updateModel(
+                { ...model, full_text: evt.currentTarget.value },
               );
             }}
           />
-          : (props.todo.full_text && <p>{props.todo.full_text}</p>)}
+          : (model.full_text && <p>{model.full_text}</p>)}
       </FormControl>
     </Paper>
   );

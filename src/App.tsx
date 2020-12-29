@@ -6,6 +6,7 @@ import AppDrawer from "./AppDrawer";
 import AppLayout from "./AppLayout";
 
 import { Provider as AppBarProvider } from "./contexts/app-bar";
+import { Provider as GqlClientProvider } from "./contexts/gql-client";
 import { useFadeInApp } from "./hooks/useFadeInApp";
 import Theme from "./theme/Provider";
 
@@ -24,16 +25,18 @@ const App: FC = ({ children }) => {
   const isFadeReady = useFadeInApp();
   return (
     <Theme>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <AppBarProvider>
-          <div className="App" style={{ opacity: isFadeReady ? 1 : 0 }}>
-            <AppLayout {...{ AppBar, AppDrawer }}>
-              {children}
-            </AppLayout>
-          </div>
-        </AppBarProvider>
-      </QueryClientProvider>
+      <GqlClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <AppBarProvider>
+            <div className="App" style={{ opacity: isFadeReady ? 1 : 0 }}>
+              <AppLayout {...{ AppBar, AppDrawer }}>
+                {children}
+              </AppLayout>
+            </div>
+          </AppBarProvider>
+        </QueryClientProvider>
+      </GqlClientProvider>
     </Theme>
   );
 };

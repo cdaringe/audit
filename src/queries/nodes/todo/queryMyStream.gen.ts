@@ -1,33 +1,33 @@
 import type * as Types from "../../../api";
 
-import type { TodoNodeFragment } from "./TodoNode.gen";
 import type { GraphQLClient } from "graphql-request";
 import { print } from "graphql";
 import gql from "graphql-tag";
-import { TodoNodeFragmentDoc } from "./TodoNode.gen";
-export type GetTodoNodeQueryVariables = Types.Exact<{
-  id: Types.Scalars["Int"];
-}>;
+export type GetMyStreamNodesQueryVariables = Types.Exact<
+  { [key: string]: never }
+>;
 
-export type GetTodoNodeQueryResult = (
+export type GetMyStreamNodesQueryResult = (
   & { readonly __typename?: "query_root" }
   & {
     readonly node_todo: ReadonlyArray<
       (
         & { readonly __typename?: "node_todo" }
-        & TodoNodeFragment
+        & Pick<Types.Node_Todo, "summary" | "is_complete" | "id">
       )
     >;
   }
 );
 
-export const GetTodoNodeDocument = gql`
-    query GetTodoNode($id: Int!) {
-  node_todo(where: {id: {_eq: $id}}) {
-    ...TodoNode
+export const GetMyStreamNodesDocument = gql`
+    query GetMyStreamNodes {
+  node_todo(order_by: {id: asc}, where: {parent_id: {_is_null: true}}) {
+    summary
+    is_complete
+    id
   }
 }
-    ${TodoNodeFragmentDoc}`;
+    `;
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
 
@@ -37,13 +37,13 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    GetTodoNode(
-      variables: GetTodoNodeQueryVariables,
+    GetMyStreamNodes(
+      variables?: GetMyStreamNodesQueryVariables,
       requestHeaders?: Headers,
-    ): Promise<GetTodoNodeQueryResult> {
+    ): Promise<GetMyStreamNodesQueryResult> {
       return withWrapper(() =>
-        client.request<GetTodoNodeQueryResult>(
-          print(GetTodoNodeDocument),
+        client.request<GetMyStreamNodesQueryResult>(
+          print(GetMyStreamNodesDocument),
           variables,
           requestHeaders,
         )

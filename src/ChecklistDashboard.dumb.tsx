@@ -1,20 +1,23 @@
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { makeStyles } from "@material-ui/core/styles";
-import { useQueryTodoNodes } from "./queries/nodes/todo/queryTodoNodes.hook";
+import { useQueryNodes } from "./queries/nodes/todo/queryTodoNodes.hook";
 import { useMutateTodo } from "./queries/nodes/todo/update.hook";
 import Todo, { Props as TodoProps } from "./Todo.dumb";
 import { FC } from "react";
 
 const ChecklistDashboardDumb: FC<{
   updateTodo: ReturnType<typeof useMutateTodo>;
-  useQueryTodoNodes: ReturnType<typeof useQueryTodoNodes>;
+  parentId: number;
+  data: ReturnType<typeof useQueryNodes>["data"];
   onEditTodo: TodoProps["onEdit"];
-}> = ({ updateTodo, useQueryTodoNodes: { isLoading, data }, onEditTodo }) => {
+}> = ({ updateTodo, data, parentId, onEditTodo }) => {
+  const toPaint = (data.node_todo || []).filter((n) =>
+    n.parent_id === parentId
+  );
   return (
     <Grid container spacing={3}>
-      {isLoading && <CircularProgress />}
-      {(data?.node_todo || []).map((
+      {!toPaint.length && <p>No work tracked yet. Let's get busy.</p>}
+      {!!toPaint.length && toPaint.map((
         it,
         key,
       ) => (<Grid key={key} item xs={12} md={8} lg={9}>

@@ -1,18 +1,22 @@
 mutation UpdateTodo(
-  $summary: String!,
-  $id: Int!,
-  $full_text: String,
-  $assigned_user_id: Int,
   $assigned_group_id: Int,
-  $is_complete: Boolean
+  $assigned_user_id: Int,
+  $full_text: String,
+  $id: Int!,
+  $is_complete: Boolean,
+  $is_virtual: Boolean,
+  $parent_id: Int,
+  $summary: String!
 ) {
   update_node_todo(_set: {
-    summary: $summary,
-    id: $id,
-    full_text: $full_text,
-    assigned_user_id: $assigned_user_id,
     assigned_group_id: $assigned_group_id,
-    is_complete: $is_complete
+    assigned_user_id: $assigned_user_id,
+    full_text: $full_text,
+    id: $id,
+    is_complete: $is_complete,
+    is_virtual: $is_virtual,
+    parent_id: $parent_id,
+    summary: $summary
   },
     where: {id: {_eq: $id}}) {
     affected_rows

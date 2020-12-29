@@ -1,26 +1,18 @@
-import { createUseQuery } from "../../../hooks/createUseQuery";
-import type {
-  GetTodoNodesQueryResult,
-  GetTodoNodesQueryVariables,
-} from "./queryTodoNodes.gen";
+import { useQuery, UseQueryOptions } from "react-query";
+import { useClient } from "../../../contexts/gql-client";
+import { GetTodoNodeQueryResult } from "./queryTodoNode.gen";
+import { getSdk } from "./queryTodoNodes.gen";
 
-const query = `query GetTodoNodes {
-  node_todo(order_by: { id: asc }) {
-    id
-    summary
-    full_text
-    assigned_user_id
-    assigned_group_id
-    is_complete
-  }
-}
+export const queryKey = "todos";
 
-`;
-
-export const useQueryTodoNodes = () =>
-  createUseQuery<GetTodoNodesQueryResult, GetTodoNodesQueryVariables>(
-    query,
-    {
-      queryKey: ["todos"],
-    },
-  );
+export const useQueryNodes = (
+  id: number,
+  options?: UseQueryOptions<unknown, unknown, GetTodoNodeQueryResult>,
+) => {
+  const client = useClient();
+  return useQuery<unknown, unknown, GetTodoNodeQueryResult>({
+    ...(options || {}),
+    queryKey,
+    queryFn: () => getSdk(client).GetTodoNodes({ id }),
+  });
+};

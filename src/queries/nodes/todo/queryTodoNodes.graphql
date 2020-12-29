@@ -1,5 +1,7 @@
-query GetTodoNodes {
-  node_todo(order_by: { id: asc }) {
+query GetTodoNodes($id:Int!) {
+  node_todo(order_by: { id: asc }, where: {
+    _or: [{ id: { _eq: $id }}, { parent_id: { _eq: $id }}]
+  }) {
     ...TodoNode
   }
 }
